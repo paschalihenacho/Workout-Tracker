@@ -37,3 +37,14 @@ app.get('/api/workouts', async (req, res) => {
       res.json(err);
     });
 });
+
+app.post('/api/workouts', async (req, res) => {
+    const workout = new Workout({ exercises: req.body });
+    Workout.create(workout)
+      .then(dbWorkout => {
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
