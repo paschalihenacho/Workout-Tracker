@@ -48,3 +48,29 @@ app.post('/api/workouts', async (req, res) => {
         res.json(err);
       });
   });
+  app.put('/api/workouts/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+  
+    Workout.findById(id)
+      .then(dbWorkout => {
+        dbWorkout.exercises.push(data);
+        return dbWorkout;
+      })
+      .then(dbWorkout => {
+        Workout.findOneAndUpdate(
+          { _id: id },
+          { exercises: dbWorkout.exercises },
+          { new: true }
+        )
+          .then(dbWorkout => {
+            res.json(dbWorkout);
+          })
+          .catch(err => {
+            res.json(err);
+          });
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
