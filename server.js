@@ -74,3 +74,16 @@ app.post('/api/workouts', async (req, res) => {
         res.json(err);
       });
   });
+  app.get('/api/workouts/range', async (req, res) => {
+    Workout.find({})
+      .then(dbWorkout => {
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
+  
+  app.listen(PORT, function() {
+    console.log('App now listening at localhost:' + PORT);
+  });
