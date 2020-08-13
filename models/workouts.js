@@ -35,6 +35,10 @@ const workoutSchema = new Schema(
         },
         distance: {
           type: Number
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now
         }
       }
     ]
@@ -50,8 +54,6 @@ workoutSchema.virtual("totalDuration").get(function() {
       return total + exercise.duration;
     }, 0);
   });
-  
-  const Workout = mongoose.model("Workout", workoutSchema);
-  
-  module.exports = Workout;
+
+  module.exports = mongoose.model('Workout', workoutSchema);
   
